@@ -24,6 +24,19 @@ app.get('/movies', (req, res) => {
     res.render('index', { movies: movieList.results });   
 })
 
+app.get('/movies/:id', (req, res) => {
+
+    res.render('show', { movie: movieList.results.find((movie) => movie.id.toString() === req.params.id)})
+})
+
+app.get('/search', (req, res) => {
+
+    const keyword = req.query.keyword.toLowerCase();
+    res.render('index', {keyword, movies: movieList.results.filter(
+        (movie) => movie.title.toLowerCase().includes(keyword))});
+})
+
+
 app.listen(port, () => {
     console.log(`Your server is now listening in http://localhost:${port}`);
 })
